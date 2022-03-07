@@ -9,12 +9,10 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
-.gitignore
 .mvn/
 mvnw
 mvnw.cmd
-pom.xml
-src/
+
 
 **/mvnw
 **/mvnw.cmd
