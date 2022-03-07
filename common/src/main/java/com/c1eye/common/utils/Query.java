@@ -11,7 +11,7 @@ package com.c1eye.common.utils;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.renren.common.xss.SQLFilter;
+import com.c1eye.common.xss.SQLFilter;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
