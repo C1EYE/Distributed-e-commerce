@@ -11,7 +11,6 @@ spring:
         service: dsm-coupon
   application:
     name: dsm-coupon
-
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   global-config:
