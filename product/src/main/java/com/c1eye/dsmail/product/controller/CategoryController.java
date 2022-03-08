@@ -1,7 +1,10 @@
 package com.c1eye.dsmail.product.controller;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +17,6 @@ import com.c1eye.dsmail.product.entity.CategoryEntity;
 import com.c1eye.dsmail.product.service.CategoryService;
 import com.c1eye.common.utils.PageUtils;
 import com.c1eye.common.utils.R;
-
 
 
 /**
@@ -31,13 +33,34 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * 列表
+     * 查出所有分类以及子分类，以树形结构组装起来
      */
     @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryService.queryPage(params);
+    public R list(@RequestParam Map<String, Object> params) {
+        List<CategoryEntity> entities = categoryService.listWithTree();
+        List<CategoryEntity> data = entities.stream()
+                                            .filter(e -> e.getParentCid() == 0)
+                                            .map(menu -> {
+                                                menu.setChildren(getChildrens(menu, entities));
+                                                return menu;
+                                            })
+                                            .sorted(Comparator.comparingInt(menu -> (menu.getSort() == null ? 0 :
+                                                    menu.getSort())))
+                                            .collect(Collectors.toList());
+        return R.ok().put("data", data);
+    }
 
-        return R.ok().put("page", page);
+    private List<CategoryEntity> getChildrens(CategoryEntity root, List<CategoryEntity> all) {
+        List<CategoryEntity> data = all.stream()
+                                       .filter(categoryEntity -> categoryEntity.getParentCid().equals(root.getCatId()))
+                                       .map(categoryEntity -> {
+                                           categoryEntity.setChildren(getChildrens(categoryEntity, all));
+                                           return categoryEntity;
+                                       })
+                                       .sorted(Comparator.comparingInt(menu -> (menu.getSort() == null ? 0 :
+                                               menu.getSort())))
+                                       .collect(Collectors.toList());
+        return data;
     }
 
 
@@ -45,8 +68,8 @@ public class CategoryController {
      * 信息
      */
     @RequestMapping("/info/{catId}")
-    public R info(@PathVariable("catId") Long catId){
-		CategoryEntity category = categoryService.getById(catId);
+    public R info(@PathVariable("catId") Long catId) {
+        CategoryEntity category = categoryService.getById(catId);
 
         return R.ok().put("category", category);
     }
@@ -55,8 +78,8 @@ public class CategoryController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody CategoryEntity category){
-		categoryService.save(category);
+    public R save(@RequestBody CategoryEntity category) {
+        categoryService.save(category);
 
         return R.ok();
     }
@@ -65,8 +88,8 @@ public class CategoryController {
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody CategoryEntity category){
-		categoryService.updateById(category);
+    public R update(@RequestBody CategoryEntity category) {
+        categoryService.updateById(category);
 
         return R.ok();
     }
@@ -75,8 +98,8 @@ public class CategoryController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] catIds){
-		categoryService.removeByIds(Arrays.asList(catIds));
+    public R delete(@RequestBody Long[] catIds) {
+        categoryService.removeByIds(Arrays.asList(catIds));
 
         return R.ok();
     }
