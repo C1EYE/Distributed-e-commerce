@@ -46,6 +46,7 @@ spring:
     name: renren-fast
   main:
     allow-bean-definition-overriding: true
+
 #  resources:
 #    add-mappings: false
 

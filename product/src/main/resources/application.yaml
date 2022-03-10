@@ -11,10 +11,21 @@ spring:
         service: dsm-product
     application:
       name: dsm-product
+    alicloud:
+      access-key: LTAI5tL7mCPugngcSUZmoKop
+      secret-key: weO6nCuinXKdoEvGfGMq8fQ5wDRX0e
+      oss:
+        endpoint: oss-cn-beijing.aliyuncs.com
+
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   global-config:
     db-config:
       id-type: auto
+      logic-delete-value: 1
+      logic-not-delete-value: 0
 server:
   port: 10000
+logging:
+  level:
+    com.c1eye.dsmail: debug

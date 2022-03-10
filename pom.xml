@@ -19,5 +19,6 @@
 		<module>renren-fast-v3.0.0</module>
 		<module>renren-generator</module>
 		<module>common</module>
+		<module>third-party</module>
 	</modules>
 </project>
