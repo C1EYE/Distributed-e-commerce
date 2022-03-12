@@ -3,6 +3,9 @@ package com.c1eye.dsmail.product.dao;
 import com.c1eye.dsmail.product.entity.AttrAttrgroupRelationEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * ÊôÐÔ&ÊôÐÔ·Ö×é¹ØÁª
@@ -13,5 +16,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface AttrAttrgroupRelationDao extends BaseMapper<AttrAttrgroupRelationEntity> {
-	
+
+    void deleteBatchRelation(@Param("entities") List<AttrAttrgroupRelationEntity> list);
 }
