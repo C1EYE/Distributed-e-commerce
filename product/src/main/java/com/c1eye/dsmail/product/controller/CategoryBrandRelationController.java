@@ -3,12 +3,14 @@ package com.c1eye.dsmail.product.controller;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.c1eye.dsmail.product.entity.BrandEntity;
 import com.c1eye.dsmail.product.entity.CategoryEntity;
 import com.c1eye.dsmail.product.service.BrandService;
 import com.c1eye.dsmail.product.service.CategoryService;
+import com.c1eye.dsmail.product.vo.BrandVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +50,18 @@ public class CategoryBrandRelationController {
         wrapper.eq("brand_id", brandId);
         List<CategoryBrandRelationEntity> data = categoryBrandRelationService.list(wrapper);
         return R.ok().put("data", data);
+    }
+
+    @RequestMapping("/brands/list")
+    public R relationBrandList(@RequestParam(value = "catId",required = true) Long catId){
+        List<BrandEntity> vos = categoryBrandRelationService.getBrandsByCatId(catId);
+        List<BrandVo> collect = vos.stream().map(i -> {
+            BrandVo vo = new BrandVo();
+            vo.setBrandId(i.getBrandId());
+            vo.setBrandName(i.getName());
+            return vo;
+        }).collect(Collectors.toList());
+        return R.ok().put("data",collect);
     }
 
     /**

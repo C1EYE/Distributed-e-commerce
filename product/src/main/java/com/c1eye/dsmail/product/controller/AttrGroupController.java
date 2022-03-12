@@ -9,6 +9,7 @@ import com.c1eye.dsmail.product.service.AttrAttrgroupRelationService;
 import com.c1eye.dsmail.product.service.AttrService;
 import com.c1eye.dsmail.product.service.CategoryService;
 import com.c1eye.dsmail.product.vo.AttrGroupRelationVo;
+import com.c1eye.dsmail.product.vo.AttrGroupWithAttrsVo;
 import feign.Body;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -75,6 +76,12 @@ public class AttrGroupController {
     public R addRelation(@RequestBody List<AttrGroupRelationVo> vos) {
         relationService.saveBatch(vos);
         return R.ok();
+    }
+
+    @GetMapping("/{catelogId}/withattr")
+    public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId){
+        List<AttrGroupWithAttrsVo> vos = attrGroupService.getAttrGroupWithAttrsByCatelogId(catelogId);
+        return R.ok().put("data", vos);
     }
 
 

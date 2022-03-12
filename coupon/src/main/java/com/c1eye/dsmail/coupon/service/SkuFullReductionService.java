@@ -1,6 +1,7 @@
 package com.c1eye.dsmail.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.c1eye.common.to.SkuReductionTo;
 import com.c1eye.common.utils.PageUtils;
 import com.c1eye.dsmail.coupon.entity.SkuFullReductionEntity;
 
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface SkuFullReductionService extends IService<SkuFullReductionEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveSkuReduction(SkuReductionTo reductionTo);
 }
 
