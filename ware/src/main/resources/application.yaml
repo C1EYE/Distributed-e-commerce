@@ -1,4 +1,6 @@
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
   datasource:
     username: root
     password: root
@@ -19,3 +21,7 @@ mybatis-plus:
 
 server:
   port: 11000
+logging:
+  level:
+    com.c1eye: debug
+

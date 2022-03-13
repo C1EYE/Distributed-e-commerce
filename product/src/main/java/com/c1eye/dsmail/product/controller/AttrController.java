@@ -1,8 +1,11 @@
 package com.c1eye.dsmail.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.c1eye.dsmail.product.entity.ProductAttrValueEntity;
+import com.c1eye.dsmail.product.service.ProductAttrValueService;
 import com.c1eye.dsmail.product.vo.AttrGroupRelationVo;
 import com.c1eye.dsmail.product.vo.AttrRespVo;
 import com.c1eye.dsmail.product.vo.AttrVO;
@@ -13,7 +16,6 @@ import com.c1eye.dsmail.product.entity.AttrEntity;
 import com.c1eye.dsmail.product.service.AttrService;
 import com.c1eye.common.utils.PageUtils;
 import com.c1eye.common.utils.R;
-
 
 
 /**
@@ -29,26 +31,42 @@ public class AttrController {
     @Autowired
     private AttrService attrService;
 
+    @Autowired
+    private ProductAttrValueService productAttrValueService;
+
 
     @GetMapping("/{attrType}/list/{catelogId}")
-    public R baseAttrList(@RequestParam Map<String,Object> params,
-                          @PathVariable("catelogId") Long catelogId,
-                         @PathVariable("attrType") String type){
+    public R baseAttrList(
+            @RequestParam Map<String, Object> params,
+            @PathVariable("catelogId") Long catelogId,
+            @PathVariable("attrType") String type) {
 
-        PageUtils page = attrService.queryBaseAttrPage(params,catelogId,type);
+        PageUtils page = attrService.queryBaseAttrPage(params, catelogId, type);
         return R.ok().put("page", page);
     }
 
 
+    // /product/attr/base/listforspu/{spuId}
+    @GetMapping("/base/listforspu/{spuId}")
+    public R baseAttrlistforspu(@PathVariable("spuId") Long spuId){
 
+        List<ProductAttrValueEntity> entities = productAttrValueService.baseAttrlistforspu(spuId);
 
+        return R.ok().put("data",entities);
+    }
+
+    @PostMapping("/update/{spuId}")
+    public R updateSpuAttr(@PathVariable("spuId")Long spuId,List<ProductAttrValueEntity> entities){
+        productAttrValueService.updateSpuAttr(spuId, entities);
+        return R.ok();
+    }
 
 
     /**
      * 列表
      */
     @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = attrService.queryPage(params);
 
         return R.ok().put("page", page);
@@ -59,8 +77,8 @@ public class AttrController {
      * 信息
      */
     @RequestMapping("/info/{attrId}")
-    public R info(@PathVariable("attrId") Long attrId){
-        AttrRespVo attr =  attrService.getAttrInfo(attrId);
+    public R info(@PathVariable("attrId") Long attrId) {
+        AttrRespVo attr = attrService.getAttrInfo(attrId);
         return R.ok().put("attr", attr);
     }
 
@@ -68,8 +86,8 @@ public class AttrController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody AttrVO attr){
-		attrService.saveAttr(attr);
+    public R save(@RequestBody AttrVO attr) {
+        attrService.saveAttr(attr);
         return R.ok();
     }
 
@@ -77,8 +95,8 @@ public class AttrController {
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody AttrVO attr){
-		attrService.updateAttr(attr);
+    public R update(@RequestBody AttrVO attr) {
+        attrService.updateAttr(attr);
 
         return R.ok();
     }
@@ -87,8 +105,8 @@ public class AttrController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] attrIds){
-		attrService.removeByIds(Arrays.asList(attrIds));
+    public R delete(@RequestBody Long[] attrIds) {
+        attrService.removeByIds(Arrays.asList(attrIds));
 
         return R.ok();
     }
