@@ -1,4 +1,6 @@
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
   datasource:
     username: root
     password: root
@@ -29,3 +31,4 @@ server:
 logging:
   level:
     com.c1eye.dsmail: debug
+
