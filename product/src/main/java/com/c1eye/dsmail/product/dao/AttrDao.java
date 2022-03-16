@@ -3,6 +3,9 @@ package com.c1eye.dsmail.product.dao;
 import com.c1eye.dsmail.product.entity.AttrEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * ÉÌÆ·ÊôÐÔ
@@ -13,5 +16,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface AttrDao extends BaseMapper<AttrEntity> {
-	
+
+    List<Long> selectSearchAttrIds(@Param("ids") List<Long> ids);
 }

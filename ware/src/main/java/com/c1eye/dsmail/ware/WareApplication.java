@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = "com.c1eye.dsmail.ware.feign")
 public class WareApplication {
 
 	public static void main(String[] args) {

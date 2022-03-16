@@ -34,5 +34,12 @@ public interface AttrService extends IService<AttrEntity> {
     void deleteRelation(AttrGroupRelationVo[] vos);
 
     PageUtils getNoRelationAttr(Map<String, Object> params, Long attrgroupId);
+
+    /**
+     * 给定属性id，查出检索属性
+     * @param ids
+     * @return
+     */
+    List<Long> selectSearchAttrs(List<Long> ids);
 }
 

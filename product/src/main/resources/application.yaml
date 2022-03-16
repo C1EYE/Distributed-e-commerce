@@ -18,6 +18,8 @@ spring:
       secret-key: weO6nCuinXKdoEvGfGMq8fQ5wDRX0e
       oss:
         endpoint: oss-cn-beijing.aliyuncs.com
+  thymeleaf:
+    cache: false
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
@@ -31,4 +33,3 @@ server:
 logging:
   level:
     com.c1eye.dsmail: debug
-
