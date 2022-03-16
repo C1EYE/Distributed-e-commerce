@@ -3,6 +3,7 @@ package com.c1eye.dsmail.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.c1eye.common.utils.PageUtils;
 import com.c1eye.dsmail.product.entity.CategoryEntity;
+import com.c1eye.dsmail.product.vo.Catelog2Vo;
 
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,10 @@ public interface CategoryService extends IService<CategoryEntity> {
     Long[] findCatelogPath(Long catelogId);
 
     void updateCascade(CategoryEntity category);
+
+    List<CategoryEntity> getLevelOneCategorys();
+
+    Map<String, List<Catelog2Vo>> getCatalogJson();
 
 }
 
