@@ -25,4 +25,10 @@ public class SearchParam {
     private List<String> attrs;
     private Integer pageNum;
 
+    /**
+     * 原生的所有查询条件
+     */
+    private String _queryString;
+
+
 }
