@@ -243,7 +243,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         List<SkuEsModel> skuEsModelList = skuInfoEntities.stream().map(sku -> {
             SkuEsModel esModel = new SkuEsModel();
             BeanUtils.copyProperties(sku, esModel);
-            esModel.setCatelogId(sku.getCatalogId());
+            esModel.setCatalogId(sku.getCatalogId());
             esModel.setSkuPrice(sku.getPrice());
             esModel.setSkuImg(sku.getSkuDefaultImg());
             if (finalStockMap == null) {
@@ -260,9 +260,9 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             esModel.setBrandName(brandEntity.getName());
             esModel.setBrandImg(brandEntity.getLogo());
 
-            CategoryEntity categoryEntity = categoryService.getById(esModel.getCatelogId());
+            CategoryEntity categoryEntity = categoryService.getById(esModel.getCatalogId());
 
-            esModel.setCatelogName(categoryEntity.getName());
+            esModel.setCatalogName(categoryEntity.getName());
 
             // 设置检索属性
             esModel.setAttrs(collect);

@@ -27,7 +27,7 @@ public class SkuEsModel {
 
     private Long hotScore;
 
-    private Long catelogId;
+    private Long catalogId;
 
     private Long brandId;
 
@@ -35,7 +35,7 @@ public class SkuEsModel {
 
     private String brandImg;
 
-    private String catelogName;
+    private String catalogName;
 
     private List attrs;
 

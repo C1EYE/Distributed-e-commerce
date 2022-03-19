@@ -1,4 +1,13 @@
 spring:
+  redis:
+    host: 81.68.107.235
+  cache:
+    type: redis
+    redis:
+      time-to-live: 360000
+#      key-prefix: CACHE_
+      use-key-prefix: true
+      cache-null-values: true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   datasource:

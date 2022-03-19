@@ -1,33 +1,46 @@
 package com.c1eye.dsmail.product;
 
-import com.c1eye.dsmail.product.service.BrandService;
-import com.c1eye.dsmail.product.service.CategoryService;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.UUID;
 
 @SpringBootTest
-@Slf4j
-//@RunWith(SpringRunner.class)
+@RunWith(SpringRunner.class)
 public class ProductApplicationTests {
 
-	@Autowired
-	BrandService brandService;
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
 
-//	@Test
-//	void contextLoads() {
-//
-//	}
+    @Autowired
+    RedissonClient redissonClient;
 
-	@Autowired
-	CategoryService categoryService;
-	@Test
-	public void testFindPath() {
-	}
+    @Test
+    public void redissonTest() {
+        RLock lock = redissonClient.getLock("my-lock");
+        lock.lock();
+        try {
+            System.out.println("加锁成功");
+        }catch (Exception e){
+
+        }finally {
+            lock.unlock();
+        }
+    }
+
+    @Test
+    public void redisTest() {
+        ValueOperations<String, String> stringStringValueOperations = stringRedisTemplate.opsForValue();
+        String s = UUID.randomUUID().toString();
+        stringStringValueOperations.set("hello", s);
+        assert stringStringValueOperations.get("hello").equals(s);
+
+    }
 }

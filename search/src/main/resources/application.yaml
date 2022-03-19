@@ -1,4 +1,6 @@
 spring:
+  thymeleaf:
+    cache: false
   elasticsearch:
     rest:
       uris: [ "http://101.43.163.178:9200" ]

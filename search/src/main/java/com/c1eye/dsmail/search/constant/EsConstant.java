@@ -5,5 +5,6 @@ package com.c1eye.dsmail.search.constant;
  * time 2022/3/15 10:07
  */
 public class EsConstant {
-    public static final String PRODUCT_INDEX = "product";
+    public static final String PRODUCT_INDEX = "dsm_product";
+    public static final Integer PRODUCT_PAGESIZE = 10;
 }
