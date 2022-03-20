@@ -56,6 +56,7 @@ public class SkuSaleAttrValueController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody SkuSaleAttrValueEntity skuSaleAttrValue){
+        // FIXME 好像保存id保存错了
 		skuSaleAttrValueService.save(skuSaleAttrValue);
 
         return R.ok();
