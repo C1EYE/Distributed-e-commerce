@@ -3,13 +3,14 @@ package com.c1eye.dsmail.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.c1eye.common.exception.BizCodeEnum;
+import com.c1eye.dsmail.member.exception.PhoneExsitException;
+import com.c1eye.dsmail.member.exception.UsernameExistException;
 import com.c1eye.dsmail.member.feign.CouponFeignService;
+import com.c1eye.dsmail.member.vo.MemberRegisterVo;
+import com.c1eye.dsmail.member.vo.MemberUserLoginVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.c1eye.dsmail.member.entity.MemberEntity;
 import com.c1eye.dsmail.member.service.MemberService;
@@ -40,6 +41,26 @@ public class MemberController {
         memberEntity.setNickname("张三");
         R membercoupons = couponFeignService.membercoupons();
         return R.ok().put("member", memberEntity).put("coupons", membercoupons.get("coupons"));
+    }
+
+    @PostMapping("/login")
+    public R login(@RequestBody MemberUserLoginVo vo){
+        MemberEntity entity = memberService.login(vo);
+        return R.ok();
+    }
+
+
+    @PostMapping("/regist")
+    public R regist(@RequestBody MemberRegisterVo vo){
+        try {
+            memberService.regist(vo);
+
+        }catch (PhoneExsitException e){
+            return R.error(BizCodeEnum.PHONE_EXIST_EXCEPTION.getCode(), BizCodeEnum.PHONE_EXIST_EXCEPTION.getMsg());
+        }catch (UsernameExistException e){
+            return R.error(BizCodeEnum.USER_EXIST_EXCEPTION.getCode(), BizCodeEnum.USER_EXIST_EXCEPTION.getMsg());
+        }
+        return R.ok();
     }
 
     /**

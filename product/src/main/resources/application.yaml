@@ -29,6 +29,9 @@ spring:
         endpoint: oss-cn-beijing.aliyuncs.com
   thymeleaf:
     cache: false
+  session:
+    store-type: redis
+    timeout: 10000
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml

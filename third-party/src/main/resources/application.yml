@@ -11,6 +11,11 @@ spring:
         bucket: dsm-mail
       application:
         name: dsmail-third-party
+      smsconfig:
+        host: https://dfsns.market.alicloudapi.com
+        path: /data/send_sms
+        appcode: 30de473dd11240e3b3db1a1bc6307720
+        tempId: TPL_0000
 server:
   port: 30000
 

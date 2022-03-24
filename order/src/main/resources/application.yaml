@@ -1,4 +1,15 @@
 spring:
+  rabbitmq:
+    host: 81.68.107.235
+    port: 5672
+    virtual-host: /
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
+    listener:
+      simple:
+        acknowledge-mode: manual
   datasource:
     username: root
     password: root
